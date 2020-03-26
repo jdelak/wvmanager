@@ -310,4 +310,205 @@ class Player
 
         return $this;
     }
+
+    private function getAttackValue($position){
+
+		$attackvalue = $this->getAttack();
+		switch($position){
+		case 'middle_blocker':
+			$attackvalue = round($attackvalue * 0.6);
+			break;
+		case 'outside_hitter':
+			$attackvalue = round($attackvalue * 1.5);
+			break;
+		case 'opposite':
+			$attackvalue = round($attackvalue * 2.2);
+			break;
+		case 'setter':
+			$attackvalue = round($attackvalue * 0.3);
+			break;
+		case 'libero':
+			$attackvalue = round($attackvalue * 0.1);
+			break;
+		} 
+
+		return $attackvalue;
+	}
+
+	//block value by position
+	private function getBlockValue($position){
+
+		$blockValue = $this->getBlock();
+		switch($position){
+		case 'middle_blocker':
+			$blockValue = round($blockValue * 2.5);
+			break;
+		case 'outside_hitter':
+			$blockValue =  $blockValue * 1;
+			break;
+		case 'opposite':
+			$blockValue = round($blockValue * 0.8);
+			break;
+		case 'setter':
+			$blockValue = $blockValue * 1;
+			break;
+		case 'libero':
+			$blockValue = round($blockValue * 0.1);
+			break;
+		} 
+
+		return $blockValue;
+	}
+
+	//dig value by position
+	private function getDigValue($position){
+
+		$digValue = $this->getDig();
+		switch($position){
+		case 'middle_blocker':
+			$digValue = round($digValue * 0.3);
+			break;
+		case 'outside_hitter':
+			$digValue = round($digValue * 0.8);
+			break;
+		case  'opposite':
+			$digValue = round($digValue * 0.3);
+			break;
+		case 'setter':
+			$digValue = round($digValue * 0.7);
+			break;
+		case 'libero':
+			$digValue = round($digValue * 2.5);
+			break;
+		} 
+
+		return $digValue;
+	}
+
+	//serve value by position
+	private function getServeValue($position){
+
+		$serveValue = $this->getServe();
+		switch($position){
+		case 'middle_blocker':
+			$serveValue = round($serveValue * 1.2);
+			break;
+		case 'outside_hitter':
+			$serveValue = round($serveValue * 1.2);
+			break;
+		case 'opposite':
+			$serveValue = round($serveValue * 1.5);
+			break;
+		case 'setter':
+			$serveValue = round($serveValue * 1.5);
+			break;
+		case 'libero':
+			$serveValue = round($serveValue * 0.1);
+			break;
+		} 
+
+		return $serveValue;
+	}
+
+	//passing value by position
+	private function getPassingValue($position){
+
+		$passingValue = $this->getPassing();
+		switch($position){
+		case 'middle_blocker':
+			$passingValue = round($passingValue * 0.4);
+			break;
+		case 'outside_hitter':
+			$passingValue = round($passingValue * 0.5);
+			break;
+		case 'opposite':
+			$passingValue = round($passingValue * 0.2);
+			break;
+		case 'setter':
+			$passingValue = round($passingValue * 2.5);
+			break;
+		case 'libero':
+			$passingValue = round($passingValue * 2.2);
+			break;
+		} 
+
+		return $passingValue;
+	}
+
+	//get overall value of player
+	public function getOverall() {
+
+		$position = $this->getPosition();
+		$overall = round(($this->getAttackValue($position) + $this->getBlockValue($position) + $this->getDigValue($position) + $this->getPassingValue($position) + $this->getServeValue($position)) / 5);
+		return $overall;
+	}
+
+	public function becomeOlder(){
+        $age = $this->getAge();
+        if($age > 15 && $age < 40){
+            $age++;
+            $this->setAge($age);
+        }else{
+            $this->setIsRetired(true);
+        }
+	}
+
+	public function getBuyingPrice(){
+        
+		$age = $this->getAge();
+		$position = $this->getPosition();
+		$finalPrice = 0;
+		$priceByAge = 0;
+		$priceByPosition = 0;
+
+		//PriceByAge Bonus
+		if($age < 41){
+			$priceByAge = 500;
+		}
+		else if($age < 36){
+			$priceByAge = 750;
+		}
+		else if($age < 31){
+			$priceByAge = 1000;
+		}
+		else if($age < 26){
+			$priceByAge = 1500;
+		}
+		else if($age > 15 && $age < 21){
+			$priceByAge = 2000;
+		}else{
+			$priceByAge = 0;
+		}
+
+		//PriceByPositionBonus
+		switch($position){
+		case 'outside_hitter':
+			$priceByPosition = 1500;
+			break;
+		case 'opposite':
+			$priceByPosition = 2000;
+			break;
+		case 'middle_blocker':
+			$priceByPosition = 1000;
+			break;
+		case 'setter':
+			$priceByPosition = 1200;
+			break;
+		case 'libero':
+			$priceByPosition = 750;
+			break;
+
+		}
+
+		$finalPrice = round(($priceByAge + $priceByPosition) * $this->getOverall());        
+		return $finalPrice;
+	}
+
+
+	public function getSellingPrice(){
+
+		$sellPrice = round($this->getBuyingPrice() / 2);
+		return $sellPrice;
+
+	}
 }

@@ -25,7 +25,7 @@ class User implements UserInterface
     private $email;
 
      /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string", length=30)
      */
     private $nickname;
 
@@ -70,6 +70,11 @@ class User implements UserInterface
         $this->email = $email;
 
         return $this;
+    }
+
+    public function getUsername(): ?string
+    {
+        return $this->email;
     }
 
     public function getNickname(): ?string

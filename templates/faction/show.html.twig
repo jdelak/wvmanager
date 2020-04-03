@@ -1,0 +1,30 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}{{ faction.name }}{% endblock %}
+
+{% block body %}
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    Faction ID : {{ faction.id }}
+                    {{ include('faction/_delete_form.html.twig') }}
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="card-title">{{ faction.name }}</h1>
+                    <p class="card-text"><img class="img-fluid" src="{{ asset('images/factions/' ~ faction.image) }}" /></p>
+                    
+                    <a class="btn btn-primary" href="{{ path('faction_edit', {'id': faction.id}) }}">edit</a>
+                    
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-default" href="{{ path('faction_index') }}">back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+{% endblock %}

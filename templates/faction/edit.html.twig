@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Faction{% endblock %}
+
+{% block body %}
+
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                   Edit Faction
+                   {{ include('faction/_delete_form.html.twig') }}
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title">Edit Faction</h1>
+                    <p class="card-text">
+                    {{ include('faction/_form.html.twig', {'button_label': 'Update'}) }}
+                    </p>
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-default" href="{{ path('faction_index') }}">back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

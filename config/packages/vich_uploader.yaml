@@ -1,2 +1,13 @@
 vich_uploader:
     db_driver: orm
+
+    mappings:
+        faction_image:
+            uri_prefix: /images/factions
+            upload_destination: '%kernel.project_dir%/public/images/factions'
+        ethnicity_image:
+            uri_prefix: /images/ethnicities
+            upload_destination: '%kernel.project_dir%/public/images/ethnicities'
+        team_image:
+            uri_prefix: /images/teams
+            upload_destination: '%kernel.project_dir%/public/images/teams'

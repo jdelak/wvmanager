@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New Faction{% endblock %}
+
+{% block body %}
+
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                   Create new Faction
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title">Create new Faction</h1>
+                    <p class="card-text">
+                    {{ include('faction/_form.html.twig') }}
+                    </p>
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-default" href="{{ path('faction_index') }}">back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

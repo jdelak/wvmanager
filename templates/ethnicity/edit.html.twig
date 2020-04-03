@@ -1,25 +1,24 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}#{{ faction.id }} - {{ faction.name }}{% endblock %}
+{% block title %}#{{ ethnicity.id }} - {{ ethnicity.name }}{% endblock %}
 
 {% block body %}
-
 <div class="col-lg-12">
     <div class="row">
         <div class="col-sm-6 mx-auto">
             <div class="card">
                 <div class="card-header">
-                     #{{ faction.id }} - {{ faction.name }}
-                   {{ include('faction/_delete_form.html.twig') }}
+                   #{{ ethnicity.id }} - {{ ethnicity.name }}
+                   {{ include('ethnicity/_delete_form.html.twig') }}
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title">Edit {{ faction.name }}</h1>
+                    <h1 class="card-title">Edit {{ ethnicity.name }}</h1>
                     <p class="card-text">
-                    {{ include('faction/_form.html.twig', {'button_label': 'Update'}) }}
+                    {{ include('ethnicity/_form.html.twig', {'button_label': 'Update'}) }}
                     </p>
                 </div>
                 <div class="card-footer text-muted">
-                    <a class="btn btn-default" href="{{ path('faction_index') }}">back to list</a>
+                    <a class="btn btn-default" href="{{ path('ethnicity_index') }}">back to list</a>
                 </div>
             </div>
         </div>

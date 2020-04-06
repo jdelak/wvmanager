@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}#{{ faction.id }} - {{ faction.name }}{% endblock %}
+{% block title %}New League{% endblock %}
 
 {% block body %}
 
@@ -9,20 +9,20 @@
         <div class="col-sm-6 mx-auto">
             <div class="card">
                 <div class="card-header">
-                     #{{ faction.id }} - {{ faction.name }}
-                   {{ include('faction/_delete_form.html.twig') }}
+                  Create New League
                 </div>
                 <div class="card-body">
-                    <h1 class="card-title">Edit {{ faction.name }}</h1>
+                    <h1 class="card-title">Create New League</h1>
                     <p class="card-text">
-                    {{ include('faction/_form.html.twig', {'button_label': 'Update'}) }}
+                    {{ include('league/_form.html.twig') }}
                     </p>
                 </div>
                 <div class="card-footer text-muted">
-                    <a class="btn btn-secondary" href="{{ path('faction_index') }}">back to list</a>
+                    <a class="btn btn-secondary" href="{{ path('league_index') }}">back to list</a>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</div>    
+
 {% endblock %}

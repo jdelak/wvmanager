@@ -19,6 +19,16 @@ class LeagueRepository extends ServiceEntityRepository
         parent::__construct($registry, League::class);
     }
 
+    public function findLastLeague($value): ?League
+    {
+        return $this->createQueryBuilder('l')
+        ->andWhere('l.id = :val')
+        ->setParameter('val', $value)
+        ->getQuery()
+        ->getOneOrNullResult()
+    ;
+    }
+
     // /**
     //  * @return League[] Returns an array of League objects
     //  */

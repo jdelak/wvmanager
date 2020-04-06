@@ -1,0 +1,51 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}League{% endblock %}
+
+{% block body %}
+
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-sm-10 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    League #{{ league.id }}
+                    {{ include('league/_delete_form.html.twig') }}
+                </div>
+                <div class="card-body">
+                    <h1 class="card-title">League #{{ league.id }}</h1>
+                    <div class="card-text">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <tbody>
+                                    <tr>
+                                        <th>Level</th>
+                                        <td>{{ league.level }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pts_to_up</th>
+                                        <td>{{ league.ptsToUp }}</td>
+                                    </tr>
+                                    <tr>
+                                        <th>Pts_to_down</th>
+                                        <td>{{ league.ptsToDown }}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-secondary" href="{{ path('league_index') }}">back to list</a>
+                    <a class="btn btn-primary" href="{{ path('league_edit', {'id': league.id}) }}">edit</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+   
+
+    
+

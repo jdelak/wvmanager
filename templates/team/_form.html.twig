@@ -1,0 +1,24 @@
+{{ form_start(form) }}
+    {{ form_row(form.name) }}
+    <div class="form-group">
+     <section class="demo">
+        <div class="row">
+            <div class="col-lg-4 text-center">
+                <span class="prev btn btn-success"><</span>
+            </div>
+            <div id="container-slider" class="col-lg-4">
+                {% for teamImage in teamImages %}
+                <div class="team-emblem" data-val="{{ teamImage }}" style="display:none">
+                    <img class="img-fluid" src="{{ asset('images/teams/' ~ teamImage) }}" />
+                </div>
+                {% endfor %}
+            </div>
+            <div class="col-lg-4 text-center">
+                <span class="next btn btn-success">></span>
+            </div>
+        </div>
+     </section>
+    </div>
+    <input type="hidden" name="image" id="teamImage">
+    <button class="btn btn-primary">{{ button_label|default('Save') }}</button>
+{{ form_end(form) }}

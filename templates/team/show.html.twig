@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Team #{{ team.id }} - {{ team.name }}{% endblock %}
+
+{% block body %}
+<div class="col-lg-12">
+    <div class="row">
+        <div class="col-sm-6 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    Team ID : {{ team.id }}
+                    {{ include('team/_delete_form.html.twig') }}
+                </div>
+                <div class="card-body text-center">
+                    <h1 class="card-title">{{ team.name }}</h1>
+                    <p class="card-text"><img class="img-fluid" src="{{ asset('images/teams/' ~ team.image) }}" /></p>
+                    
+                    <a class="btn btn-primary" href="{{ path('team_edit', {'id': team.id}) }}">edit</a>
+                    
+                </div>
+                <div class="card-footer text-muted">
+                    <a class="btn btn-secondary" href="{{ path('team_index') }}">back to list</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

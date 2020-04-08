@@ -40,7 +40,7 @@ class Team
     private $id_league;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="id_team")
+     * @ORM\OneToMany(targetEntity="App\Entity\Player", mappedBy="id_team", cascade={"persist"})
      */
     private $players;
 

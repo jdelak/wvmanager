@@ -98,7 +98,7 @@ class Player
     private $id_ethnicity;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="players")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Team", inversedBy="players", cascade={"persist"})
      */
     private $id_team;
 
@@ -497,7 +497,6 @@ class Player
 		case 'libero':
 			$priceByPosition = 750;
 			break;
-
 		}
 
 		$finalPrice = round(($priceByAge + $priceByPosition) * $this->getOverall());        
@@ -506,9 +505,96 @@ class Player
 
 
 	public function getSellingPrice(){
-
 		$sellPrice = round($this->getBuyingPrice() / 2);
 		return $sellPrice;
+    }
 
-	}
+    public function generateNames($ethnicityName){
+
+        switch($ethnicityName){
+
+            case 'Blood Elf':
+                $firstnames = array(
+                    "Aelma","Alada","Amorrel","Amoyn","Aneda","Aulaya", "Aulina","Auni","Aunore","Azadrea","Azaewea","Azlenne","Belwea","Bemarsara","Caerel","Cainaria","Cairea","Ceadine","Ceelenn","Dabnia","Daewe","Darlatha","Daydra","Dayrae","Defia","Deridel","Deyleane","Deythel","Elori","Elylonis","Elymisa","Elysendra","Erili","Eroni","Erosalia","Erosilla", "Fatasia","Firea","Galadra","Galalania","Garna","Gasara","Hanneda","Kalidori","Kalinlania","Kelerae","Kellene","Kinarianna","Kinasa","Kylan","Kyrae","Laewae","Laewea","Lalonis","Lare","Leadori","Lorra","Lynrae","Lysilla","Manara",  "Mirthel",  "Nalinda","Narerae","Narise","Narwea","Novidine","Novilenn","Novivea","Ozara","Sanise","Sasalia","Sedaline","Shana","Sharsalia","Siladel","Silalinda","Silansilla","Syerine","Syrise","Telirae","Telyn","Terea","Terellinda","Tyerin","Tynaria","Tynsia","Vedina","Velalan","Velenna","Venia","Zalina","Zanrea","Zarallatha","Zarion","Zarlanne","Zeadine","Zeadrin","Zearea","Zyandori","Zyarel"
+                );
+                $names = array(
+                    "Ancientbane","Ancientluck","Ancientmind","Arcanemourn","Arcanespear","Autumntrick","Blackbirth","Bloodsmile","Boldforge","Brasssign","Brightdesire","Bronzebeam","Cindergaze","Crimsonbane","Darkband","Darkburst","Dawnsworn","Daybreath","Dayfate","Daysong","Dayspell","Dewbeam","Dewbringer","Dewburn","Dewdepth","Dreadbringer","Dualburn","Dualvale","Dusktrick","Eagerwood","Emberfaith","Emberpath","Embersprinter","Evenflame","Evenshine","Evenstalker","Eventrick","Eversprinter","Firestalker","Flamepost","Glaresmile","Glowburst","Glowtwist","Goldenfate","Goldshine","Goldwood","Greatrest","Greattrick","Grimshade","Grimspark","Hotbinder","Leafbane","Lividdown","Lividfeather","Longtruth","Magesinger","Mirthlight","Mirthtruth","Moonfate","Moonforce","Moonpost","Morningray","Morrowlight","Morrowsworn","Nightfeather","Nightsworn","Nimbleveil","Palepride","Peacebell","Peacehold","Peacesong","Phoenixforce","Phoenixsong","Runereaver","Runesky","Sharpbell","Sharpstar","Silentshadow","Silverpath","Slimflow","Solarseeker","Somberflame","Sombergift","Soultwist","Summerblossom","Sunbane","Sunvein","Sweetflight","Swiftsky","Tindergaze","Tinderheart","Tinderstar","Truehide","Twinthread","Velvetsorrow","Velvetwhisper","Warmblade","Wildsense","Windburst","Windpost"
+                );
+            break;
+
+            case 'Draenei':
+                $names = array(
+                    "Aalguni","Aelleall","Aevora","Altaa","Altanora","Avaua","Aveelle","Averah","Avetra","Avgin","Bastra","Binlesia","Bolun","Bomere","Bona","Chega","Chelara","Chemina","Chenah","Cherae","Colana","Durett","Dutaan","Edelle","Edivi","Edmere","Edsa","Egonir","Elna","Eltraa","Enlaara","Ensa","Ereere","Ererin","Esmah","Fanir","Finti","Goraraa","Hafemis","Haleen","Hamere","Inalyn","Inelara","Inemi","Irelaara","Irelun","Iresmena","Irtra","Ishri","Jega","Jesaana","Jolelli","Jolhi","Karae","Kazal","Kazi","Keillyn","Keinir","Keirin","Kelriaad","Khasa","Kihaa","Lunomah","Mahraa","Mahrii","Malii","Mamere","Mela","Miaguni","Milara","Mimae","Miny","Miran","Monaraa","Mosa","Muhmere","Mulesia","Mumena","Murula","Nalaada","Nansia","Nartaa","Nolara","Norasia","Ohuma","Palahula","Phaeall","Remtia","Sehi","Shalei","Thelca","Uraua","Valuette","Xamina","Xataan","Xitaan","Yala","Yami","Zhalii","Zhana"
+                );
+            break;
+
+            case 'Dwarf':
+                $firstnames = array(
+                    "Ade","Aemde","Aengras","Airahran","Amdo","Amwaigi","Amwella","Anwhyglo","Arass","Baegohre","Baengri","Bavollon","Bilu","Bratel","Brehrenmu","Bremdua","Bresa","Brinlus","Byglahwu","Bynglehdy","Daeglohto","Dahge","Damvuhgu","Doza","Dungross","Dynvin","Enemlu","Eshe","Gangin","Gannyn","Geanlen","Govo","Gumglistian","Gwalla","Gweyshahvess","Gwonge","Gwytamra","Ihgydiss","Jagess","Jailliss","Jangu","Jelli","Juhge","Kahryta","Kestonn","Kolle","Konrama","Lemgodo","Limiass","Lumwu","Lunann","Lymi","Lyngre","Mahwonli","Marina","Masso","Meynlo","Mogin","Mollunn","Mone","Mynno","Naden","Nashi","Nunli","Nywhygua","Rantemis","Rengi","Rennoss","Resin","Reveze","Ryvou","Saze","Semgali","Seta","Sevewhun","Sili","Sogio","Sugu","Sydymwol","Tagen","Tanthola","Tarou","Teasso","Temwus","Thandamde","Theyma","Thostio","Thumdoshy","Thyhda","Thysess","Twammollu","Twatu","Twesan","Twyhdo","Tyme","Ugyhdo","Usso","Uste","Ymgostan","Yntamu"
+                );
+                $names = array(
+                    "Arcticfield","Barleyheart","Barleymane","Battleback","Battleboot","Blackbeard","Blackbrand","Boldstorm","Boldward","Bonegrace","Bonemantle","Boulderbelcher","Braveaxe","Brightrest","Broadfist","Broadpride","Bronzeforge","Bronzemantle","Coarseblade","Coarsehonor","Coldfield","Cooldrink","Coolfeast","Coolhold","Craggrace","Cragsteel","Darkmail","Deepboot","Doomhelm","Doompike","Drunkguard","Dualgrip","Farbreath","Firecrag","Firstboots","Flintpast","Frostbranch","Frozenkind","Fullback","Fullcrag","Fullgift","Fullnight","Fullpride","Fusedrink","Giantbeer","Giantforce","Giantforge","Goldenfight","Goldnight","Greatkind","Greatmane","Grimfury","Hardfront","Highbrew","Ironbottom","Irongift","Keenarm","Keenbeard","Keenfury","Keenhorn","Kinddepth","Kindhelm","Kindpike","Lastbelly","Longhandle","Longtask","Loudbreath","Loudgate","Madbrew","Madflight","Marbleore","Moltenbelch","Mountainarm","Olddust","Oldfury","Palebreath","Quickdust","Quickfall","Quickmane","Quickpower","Rustgift","Ruststone","Shortshaper","Slateaxe","Smugbelt","Smugfeast","Smugore","Snowtoe","Stoneward","Stouthorn","Strongbrand","Thundergrace","Thunderpower","Toughaxe","Toughroar","Truehold","Twinmane","Twinpride","Warbelcher","Warbrand"
+                );
+            break;
+            
+            case 'Human':
+                $firstnames = array(
+                    "Aiglentina","Ainsley","Akira","Alicia","Alissa","Almuth","Althee","Amabel","Annelie","Aria","Ashley","Audrey","Baerbel","Berenice","Berniss","Blenda","Capucine","Cecile","Cheryl","Ciera","Claudia","Clementine", "Constance","Cornelia","Cynthia","Dayana","Deanna","Debby","Denise","Desideria","Dulce","Ebony","Eila","Eldrida","Elvire","Emmaline","Ericka","Esperanza","Essence","Fay","Florentia","Francena","Galina","Gaya","Gerlindis","Gloriosa","Haylie","Isabel","Iyanna","Jenifer","Jessica","Jewell","Jolantha","Josalyn","Julia","Julissa","Kendal","Lilia","Lillyn","Lydia","Madelina","Madie","Margot","Marie","Mercy","Michele","Millie","Minerva","Mistique","Nastjenka","Norma","Nuria","Olympia","Pascaline","Philippina","Priscila","Rachel","Raffaela","Raquel","Rebeca","Rosanna","Sania","Seraphina","Shahana","Shirley","Sienna","Silka","Sophie","Tamara","Tania","Tempeste","Trista","Vera","Virginia","Vittoria","Voleta","Whitney","Xavierra","Yessenia","Yolanda"
+                );
+                $names = array(
+                   "Alabert","Allerton","Alston","Anderton","Ashton","Atherton","Barlow","Beckwith","Berkeley","Blackwood","Blankley","Boucher","Browning","Buckley","Burton","Carlyle","Cholmondeley","Christiansen","Clemons","Clifford","Clinton","Copeland","Currington","Da Silva","Di Maglia","Dryden","Dupont","Elton","Emsworth","Fiske","Garfield","Garnier","Garthside","Graham","Hallewell","Hampton","Hastings","Hayden","Helton","Hillard","Johnson","Keats","Kendal","Lancaster","Landon","Lee","Lindsey","Mabbott","Malakova","Marlowe","Michallas","Milton","Mitchell","Morton","Newbery","Nutlee","Oldham","Poliakova","Ramires","Ramsay","Ramsey","Reeves","Ridley","Rivers","Rodney","Roscoe","Rutland","Sanchez","Shelby","Sheldon","Shelley","Shurman","Sicilia","Smith","Soames","Southey","Spalding","Spooner","Stafford","Stamper","Stanley","Stevenson","Stonebridge","Stratford","Sutton","Swett","Sydney","Thorne","Thornton","Thorp","Upton","Verone","Villette","Watt","Wheatleigh","Whiteley","Williams","Williamson","Wyther","Yeardley"
+                );
+            break;
+
+            case 'Night Elf':
+                $firstnames = array(
+                    "A\'liena","Aethaliynn","Alairan","Alairia","Alariia","Amadrieth","Anyssa","Aryvaria","Becaryn","Belanna","Belylah","Besia","Byatarii","Byaya","Cyriia","E\'rea","E\'reath","Eadyia","Elalania","Elanrena","Eleriala","Emillaeth","Faelyrien","Faenia","Galadya","Galyura","Gathae","Hycina","Idrithil","Ileasia","Ilillaeth","Illilia","Ilywen","Irias","Irlya","Jalaeth","Jersia","Kaedya","Kaenia","Kelanai","Kerai","Keyrai","Kinlia","Kylalas","Kylavanna","Kylylah","Kyrea","Len\'ra","Lyssia","Maedia","Manira","Marralyn","Melarina","Meleae","Meredira","Metarii","Miladya","Mindea","Mylallaes","Mylilaeth","Myssia","Myteaith","Mythalaeas","Myvanna","Nalaei","Nawen","Nelalaes","Nelerias","Nhese","Nilyurea","Nylaria","Nyrya","Nythindia","Relarina","Relrianna","Relterana","Revanna","Rhyarien","Rhyya","Satarre","Selyurae","Sharnea","Shawen","Shenas","Shylyurea","Shyssa","Silenia","Sylia","Tesya","Thaenia","Theanna","Thyn\'ra","Thynya","Trinai","Velthea","Vinaya","Wenyae","Y\'lyssae","Yaraeth","Yllaena"
+                );
+                $names = array(
+                    "Amberwind","Autumnbreeze","Bearsword","Blackbow","Blackspear","Blueblade","Darkarrow","Darksong","Dawndew","Dewbreath","Dewfire","Duskleaf","Evengazer","Farbow","Feathersword","Foghelm","Forestrunner","Foresttree","Greenbreeze","Greencloud","Greenflower","Greenwater","Leaffire","Leaflight","Leafwalker","Leafweaver","Lightflower","Lunabloom","Lunawatcher","Moonblower","Mooncrest","Mossdancer","Mossshot","Mosssword","Nightbow","Nightheart","Nightmight","Oceanwater","Rainblower","Raineye","Rainhelm","Rapidseeker","Rapidwind","Ravenspyre","Ravensword","Sagescribe","Seashade","Seashot","Shadecrest","Shadelight","Shademane","Shadescribe","Shadestar","Shadowbough","Shadowgazer","Shadowtree","Shieldmane","Silentlight","Silentoak","Silentsnow","Silenttree","Silverclouds","Silverspyre","Skygazer","Staghelm","Starshadow","Stillbranch","Stonemane","Stonemoon","Stonerage","Stoneshade","Stronggrove","Strongrunner","Strongshot","Summerarrow","Summerbough","Summerforest","Summertree","Summerwhisper","Sunspirit","Sunwatcher","Swifteye","Swiftshade","Thunderbough","Thundercaller","Thunderforest","Thunderwater","Treebloom","Trueforest","Trueleaf","Truesword","Wildleaf","Wildmight","Winterbough","Winterrunner","Winterwhisper","Woodbreath","Woodcaller","Woodsky","Woodweaver"
+                );
+            break;
+
+            case 'Orc':
+                $firstnames = array (
+                    "Ahda","Army","Ary","Arzu","Eletu","Elzoze","Ernas","Erzedku","Ese","Esze","Eze","Famgagkes","Fardu","Fehke","Fesdo","Fultoz\'re","Gahkezo","Gahkiz\'kym","Gala","Gata","Gehky","Gema","Genme","Gomzagte","Goshkangi","Gral\'komte", "Granat","Gremdistra","Greri","Greszu","Grolu","Grota","Gruhlo","Grunam","Grushozdry","Ilori","Kashagtho","Keldera","Keler","Kewto","Koher","Komza","Kone","Kovisa","Mahze","Masgi","Maszem","Mel\'kelgi","Mergendry","Mezu","Mihtut\'re","Mirtu","Mosogki","Mozkosu","Ohly","Ohze","Onmu","Oru","Osam","Osha","Ozutde","Ralam","Rawgi","Relum","Retder","Rihmezta","Rotdar","Rotze","Saduzthym","Sangolky","Sari","Sehmezthu","Sena","Sewe","Shahkagdro","Shehko","Shewzir","Shohkis","Shundum","Shuwte","Sohte","Sona","Sorzyt","Sotu","Sun\'kenme","Sunehne","Sureni","Tadralda","Tehti","Terthela","Terzyr","Tinur","Tiszetrem","Toguma","Tohgogdre","Towy","Zehda","Zilom","Ziwet","Zurnazle"
+                );
+                $names = array (
+                    "Angerbringer","Angerchewer","Angerlock","Axedrums","Axehand","Bitterhand","Blackflesh","Blackhorn","Blackwind","Bloodfall","Brightbattle","Brightslice","Brokenchampion","Bronzechains","Burningstriker","Coldfall","Coldthunder","Cravenfire","Cravenhorn","Cruelchampion","Cruelmarch","Deadbinder","Deadguard","Deathbleeder","Deathtale","Deathwind","Deathwish","Deepthunder","Doombattle","Dragonmaul","Dualbinder","Eagereye","Eagersword","Falseflesh","Firemane","Forerest","Fullbattle","Goresword","Grimcrusher","Grimlaugh","Halfbeast","Halftwist","Hellhand","Hellhunter","Hollowheart","Hollowseeker","Ironforce","Keenbasher","Keenfall","Keenspirit","Laughingchains","Lonebinder","Lonechewer","Madbinder","Madmarch","Nosedeath","Proudbinder","Proudblood","Ragechewer","Ragepack","Rapidfire","Saurdeath","Saurhorn","Shadowdrum","Shadowmight","Sharpmane","Sharpstrike","Sharpstriker","Silenttaker","Skullnight","Skullsteel","Skulltwist","Sourflame","Sourslayer","Starkspite","Starkwolf","Steelblood","Steellash","Steelrest","Steelrunner","Stonetask","Stoutblade","Strongchain","Strongripper","Strongsnarl","Thunderhammer","Tuskedge","Tusksteel","Twinmight","Twinsword","Vengebeast","Vengechain","Viceeye","Warbringer","Warphand","Warpslayer","Warpstriker","Wildfall","Wildpack","Wolfdrums"
+                );
+            break;
+
+            case 'Tauren':
+                $firstnames = array(
+                    "Alanne", "Alaqua","Algoma","Atko","Awinita","Baikpe","Blikka","Blonna","Chanigu","Chenoa","Chepuka","Chilam","Cholena","Chumani","Chuvis","Cilgoe","Damtu","Demkavie","Duzo","Eorrowo","Etenia","Eyota","Flapogsqew","Fleeta","Flelgehe","Galilahi","Hehewuti","Hinto","Hisee","Huhongo","Humita","Hune","Hungwa","Ikwoia","Imala","Istas","Izehi","Keezheekoni","Kimi","Kiona","Kuwanlelenta","Kwinno","Kwohee","Luyu","Mahal","Mecha","Medobla","Melgi","Migisi","Mini","Miona","Momkehe","Mongikoia","Mutewoia","Nadie","Natane","Nukpana","Oni","Onida","Onniga","Papina","Pauwau","Pavati","Pekurmi","Powaqa","Pules","Quana","Riblolah","Salali","Shania","Sheshebens","Shiblozi","Sholi","Shopumta","Sillo","Siwa","Sooleawa","Soyala","Sudollee","Tainn","Tamtis","Tawana","Tazanna","Teni","Tittu","Tiye","Tolinka","Udsa","Ulun","Uvelen","Waki","Wauna","Winona","Wurmim","Yamka","Yepa","Zihna","Zikka","Zimoe","Zotkus"
+                );
+                $names = array(
+                    "Autumnbrace","Autumnhoof","Bloodfeather","Bloodseeker","Bloodshadow","Bloodtotem","Chestcut","Clawwatcher","Cloudscar","Crestrider","Darkbend","Dawnjumper","Earthbrace","Earthdreamer","Earthhorn","Emberbinder","Embershout","Firetotem","Flamebreeze","Flatwhisk","Fogblade","Fogbrace","Fogsnout","Freetail","Fullrider","Gloomcutter","Glowwinds","Greatbrace","Hardspear","Hardtail","Hawksinger","Hawkwater","Hazebinder","Hazeshot","Hazewhisk","Hillbend","Ironshadow","Kodostride","Lightbluff","Lighthair","Lightninggrain","Lightningshot","Lightstream","Lightwoods","Loneshout","Longbluff","Mountaincut","Mountainrage","Oatshot","Pinedreamer","Pinepelt","Plaindream","Plaintusk","Proudbend","Prouddream","Proudspear","Pyrecreek","Pyrefeather","Pyretail","Ragewind","Ravenforest","Ravenhorn","Riverfeather","Rivermane","Rockspear","Roughbash","Roughbreath","Roughwind","Rumblebinder","Runescar","Sharpsnout","Singlemoon","Singlerunner","Singlewalker","Singlewhisk","Stonechaser","Stonehide","Strongchaser","Sungrain","Sunsnout","Sunwoods","Swiftrage","Swiftwater","Tallcut","Tallhorn","Tallrunner","Thunderwhisk","Treescar","Treeshot","Treeshout","Truthwound","Twostream","Twowinds","Twowoods","Wheatwater","Windstalker","Wisebreeze","Wisestalker","Youngmoon","Youngsoar"
+                );
+            break;
+
+            case 'Troll':
+                $names = array(
+                    "Ah\'ke","Aheiyo","Azmaya","Bo\'ku","Dihozi","Dintenn","Eaz\'ko","Elae","Elah\'ma","Enjaeh","Filli","Fuhsur","Fuwinn","Gehrea","Gucan\'mo","Haenji","Heaz\'di","Heildih","Hi\'jelzu","Hidu","Iah\'ji","Iahro","Ih\'zi","Jan\'tsi","Jeij\'mor","Jeinneja","Jiana","Jiazo\'mo","Ju\'mo","Jundo","Kadon","Kah\'da","Karehlunn","Kaz\'kith","Khahisheth","Kholzi","Khujo","Khuzmor","Kixu","Kul\'mah","Kuzmenn","Lanovu","Lareth","Linde","Loz\'koli","Maehzo","Mantah","Me\'ja","Menti","Noh\'mima","Nol\'tsaeth","Ol\'tse","Ooh\'jeann","Oohzeja","Oon\'zea","Oshmo\'ki","Pah\'ma","Pahdi","Picuz\'joth","Racotho","Rolmu","Rulmi","Sahzenu","Sasezrath","Sathu","Sej\'mu","Shaendu","Shaenjeth","Shaeta","Shil\'zimae","Sho'tseann","Tan\'jenn","Tan\'za","Tela","Tolmivi","Tuh\'ju","Ul\'kuth","Uze","Vaz\'delmu","Vezlo","Vilrah","Viwe","Vulmeiwa","Xendan","Xizenn","Yan\'jia","Yarae","Yethe","Yiceineith","Zemah\'ma","Zhaisozre","Zhecuzri","Zheliar","Zhezmi","Zhoojei","Zhoyol\'zi","Zi\'kea","Zilza","Zilzi","Ziznieh\'du"
+                );
+            break;
+        }
+
+        $generatedName = array();
+
+        if ($ethnicityName == "Draenei" || $ethnicityName == "Troll"){
+            $generatedFirstName = "";
+        }else{
+            $generatedFirstName = $firstnames[mt_rand(0, count($firstnames) -1)];
+        }
+
+        $generatedLastName = $names[mt_rand(0, count($names) -1)];
+
+        array_push($generatedName, $generatedFirstName);
+        array_push($generatedName, $generatedLastName);
+
+        return $generatedName;
+         
+    }
+
 }

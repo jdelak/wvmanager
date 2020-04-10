@@ -72,14 +72,9 @@ class Player
     private $image;
 
     /**
-     * @ORM\Column(type="boolean")
+     * @ORM\Column(type="smallint")
      */
-    private $in_squad;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $is_substitute;
+    private $squad_position;
 
     /**
      * @ORM\Column(type="boolean")
@@ -239,26 +234,14 @@ class Player
         return $this;
     }
 
-    public function getInSquad(): ?bool
+    public function getSquadPosition(): ?int
     {
-        return $this->in_squad;
+        return $this->squad_position;
     }
 
-    public function setInSquad(bool $in_squad): self
+    public function setSquadPosition(int $squad_position): self
     {
-        $this->in_squad = $in_squad;
-
-        return $this;
-    }
-
-    public function getIsSubstitute(): ?bool
-    {
-        return $this->is_substitute;
-    }
-
-    public function setIsSubstitute(bool $is_substitute): self
-    {
-        $this->is_substitute = $is_substitute;
+        $this->$squad_position = $squad_position;
 
         return $this;
     }

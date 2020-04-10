@@ -1,0 +1,23 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}WV Manager{% endblock %}
+
+{% block body %}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">Welcome to WoWmen Volleyball Manager</h1>
+                <p class="lead"> WoWmen Volleyball Manager is a management volleyball game based on the Blizzard's Game World of Warcraft</p>
+                <p>In this game you have to manage a team of women / female players of the following races : Blood Elves, Draeneis, Dwarves, Humans, Night Elves, Orc, Trolls and Tauren !</p>
+                <p>Do you want to be the best Volleyball Team in Azeroth ? <a href="{{ path('app_register') }}">REGISTER NOW</a></p>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <h2 class="text-center">News</h2>
+    </div>
+</div>
+{% endblock %}

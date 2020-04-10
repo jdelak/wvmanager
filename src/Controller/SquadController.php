@@ -14,16 +14,18 @@ class SquadController extends AbstractController
     /**
      * @Route("/squad", name="squad")
      */
-    public function index(TeamRepository $teamRepository)
+    public function index(TeamRepository $teamRepository, PlayerRepository $playerRepository)
     {
 
         $user = $this->getUser();
         $team = $user->getTeam();
         $players = $team->getPlayers();
+        $titulaires = $playerRepository->findTitulairesPlayers($team->getId());
 
         return $this->render('squad/index.html.twig', [
             'controller_name' => 'SquadController',
             'team' => $team,
+            'titulaires' => $titulaires,
             'players' => $players
         ]);
     }

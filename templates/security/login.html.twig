@@ -5,7 +5,7 @@
 {% block body %}
 <div class="row">
     <div class="col-lg-10 col-md-10 mx-auto">
-        <form method="post">
+        <form method="post" class="form form-horizontal">
             {% if error %}
                 <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
             {% endif %}
@@ -40,9 +40,9 @@
                 </div>
             #}
             <div class="form-group">
-            <a class="btn btn-lg btn-primary" type="submit">
+            <button class="btn btn-lg btn-primary" type="submit">
                 Sign in
-            </a>
+            </button>
             </div>
         </form>
     </div>

@@ -18,6 +18,31 @@
     width:32px;
 }
 
+.player-field{
+    position:relative;
+    width:80px;
+    height:80px;
+}
+
+.player-overall{
+    position: absolute;
+    top: 0;
+    right: 0;
+    background-color: grey;
+    width: 20px;
+    text-align: center;
+}
+
+.player-name{
+    position: absolute;
+    bottom: 0;
+    text-align: center;
+    font-size: 12px;
+    font-weight: bold;
+    background-color: grey;
+    width: 100%;
+}
+
 div[data-attribute='position-1'] {
     position:absolute;
     left: 70px;
@@ -58,4 +83,12 @@ div[data-attribute='position-7'] {
     position:absolute;
     right: 10px;
     bottom: 10px;
+}
+
+.player-titulaire{
+    background-color: rgba(0,255,0, 0.2)
+}
+
+.player-substitute{
+    background-color: rgba(255,255,0, 0.2)
 }

@@ -19,6 +19,17 @@ class PlayerRepository extends ServiceEntityRepository
         parent::__construct($registry, Player::class);
     }
 
+    public function findTitulairesPlayers($teamId)
+    {
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.id_team = :val')
+        ->setParameter('val', $teamId)
+        ->andWhere('p.squad_position < 8')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Player[] Returns an array of Player objects
     //  */

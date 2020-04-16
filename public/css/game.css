@@ -92,3 +92,26 @@ div[data-attribute='position-7'] {
 .player-substitute{
     background-color: rgba(255,255,0, 0.2)
 }
+
+.player-selected{
+    border: solid 3px gold;
+}
+
+.team-name{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+
+.team-name h2{
+    margin:0;
+}
+
+.team-overall{
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    font-size: 30px;
+    font-weight: bold;
+}

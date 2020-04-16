@@ -21,6 +21,27 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav nav-justified w-100 mx-auto mt-1">
+                    {% if app.user %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Matchs</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Ranking</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('squad') }}">Squad</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Training</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">Transfer Market</a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{{ path('app_logout') }}" class="btn btn-secondary nav-link">Logout</a> 
+                            <span class="nav-link">{{ app.user.username}}</span>
+                        </li>
+                    {% else %}
                         <li class="nav-item">
                             <a class="nav-link active" href="#">News</a>
                         </li>
@@ -30,17 +51,11 @@
                         <li class="nav-item">
                             <a class="nav-link" href="#">Contact</a>
                         </li>
-                        {% if app.user %}
-                        <li class="nav-item">
-                            <a href="{{ path('app_logout') }}" class="btn btn-secondary nav-link">Logout</a> 
-                            <span class="nav-link">{{ app.user.username}}</span>
-                        </li>
-                        {% else %}
                         <li class="nav-item">
                             <a href="{{ path('app_login') }}" class="btn btn-primary">Login</a>
                             <a href="{{ path('app_register') }}" class="btn btn-secondary">Register</a> 
                         </li>
-                        {% endif %}
+                    {% endif %}
                     </ul>
                 </div>
             </div>

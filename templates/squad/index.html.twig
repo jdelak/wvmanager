@@ -5,14 +5,23 @@
 {% block body %}
 <div class="row">
     <div class="col-lg-6">
-        <h2> <img src="{{ asset('images/teams/' ~ team.image) }}" class="logo-squad"> {{ team.name }}</h2>
+        <div class="row">
+            <div class="col-lg-6 team-name">
+                <img src="{{ asset('images/teams/' ~ team.image) }}" class="logo-squad"> 
+                <h2>{{ team.name }}</h2>
+            </div> 
+            <div class="col-lg-6 team-overall">
+                <span></span>
+            </div> 
+        </div>
         <div class="volley-field" style="background-image : url('/images/woman-court.jpg')">
             {% for titulaire in titulaires %}
             <div class="player-in-squad" data-attribute="position-{{titulaire.squadPosition}}" data-position="{{titulaire.position}}">
-                <div class="player-field" style="background: url('/images/players/{{titulaire.image}}') center / contain no-repeat;">
+                <div class="player-field player-selected" style="background: url('/images/players/{{titulaire.image}}') center / contain no-repeat;">
                     <span class="player-overall">{{ titulaire.getOverall }}</span>
                 </div>
                 <span class="player-name">{{ titulaire.lastname }}</span>
+
             </div>
             {% endfor %}
             {# <div class="player-in-squad" data-attribute="position-1" data-position="outside_hitter"></div>
@@ -49,4 +58,9 @@
         </table>
     </div>
 </div>
+{% endblock %}
+ {% block javascripts %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    <script src="{{ asset('js/squad.js')}}"></script>
 {% endblock %}

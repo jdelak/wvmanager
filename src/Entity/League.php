@@ -39,7 +39,7 @@ class League
     private $id_parent;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="id_division")
+     * @ORM\OneToMany(targetEntity="App\Entity\Team", mappedBy="id_league")
      */
     private $teams;
 

@@ -203,8 +203,6 @@ class TeamController extends AbstractController
         //image generation 
         $playerImage = $this->generateImagePlayer($ethnicity->getName());
         $player->setImage($playerImage);
-        $player->setInSquad(false);
-        $player->setIsSubstitute(false);
         $player->setIsInjured(false);
         $player->setIsRetired(false);
         

@@ -6,9 +6,12 @@
 <div class="row">
     <div class="col-lg-6">
         <div class="row">
-            <div class="col-lg-6 team-name">
-                <img src="{{ asset('images/teams/' ~ team.image) }}" class="logo-squad"> 
-                <h2>{{ team.name }}</h2>
+            <div class="col-lg-6">
+                <div class="team-name">
+                    <img src="{{ asset('images/teams/' ~ team.image) }}" class="logo-squad"> 
+                    <h2>{{ team.name }}</h2>  
+                </div>
+                <p class="text-center">Money : {{ user.money }}</p>
             </div> 
             <div class="col-lg-6 team-overall">
                 <span></span>
@@ -16,21 +19,15 @@
         </div>
         <div class="volley-field" style="background-image : url('/images/woman-court.jpg')">
             {% for titulaire in titulaires %}
-            <div class="player-in-squad" data-attribute="position-{{titulaire.squadPosition}}" data-position="{{titulaire.position}}">
+            <div class="player-in-squad" data-id="{{titulaire.id}}" data-attribute="position-{{titulaire.squadPosition}}" data-position="{{titulaire.position}}">
                 <div class="player-field" style="background: url('/images/players/{{titulaire.image}}') center / contain no-repeat;">
                     <span class="player-overall">{{ titulaire.getOverall }}</span>
                 </div>
                 <span class="player-name">{{ titulaire.lastname }}</span>
-
+                <p class="text-center">{{titulaire.position}}</p>
             </div>
+            
             {% endfor %}
-            {# <div class="player-in-squad" data-attribute="position-1" data-position="outside_hitter"></div>
-            <div class="player-in-squad" data-attribute="position-2" data-position="middle_blocker"></div>
-            <div class="player-in-squad" data-attribute="position-3" data-position="outside_hitter"></div>
-            <div class="player-in-squad" data-attribute="position-4" data-position="opposite"></div>
-            <div class="player-in-squad" data-attribute="position-5" data-position="middle_blocker"></div>
-            <div class="player-in-squad" data-attribute="position-6" data-position="setter"></div>
-            <div class="player-in-squad" data-attribute="position-7" data-position="libero"></div> #}
         </div>
     </div>
     <div class="col-lg-6">
@@ -58,7 +55,52 @@
         </table>
     </div>
     <div id="swap" data-path="{{path('swap_players')}}"></div>
+   <div id="playerInfo" data-path="{{path('player_info')}}"></div>
 </div>
+{% endblock %}
+{% block modal %}
+<!-- Modal -->
+    <div class="modal" id="myModal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title"></h5>
+                    <span class="btn btn-danger close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </span>
+                </div>
+                <div class="modal-body">
+                    <div class="container-fluid">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card-image"></div>
+                                <p class="card-text text-center age"></p>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="overall">
+                                
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <p class="card-text attack"></p>
+                                <p class="card-text block"></p>
+                                <p class="card-text dig"></p>
+                                <p class="card-text passing"></p>
+                                <p class="card-text serve"></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                <span class="training-count text-left"></span>
+                <a class="btn btn-lg btn-success" href="">Training</a>
+                <a class="btn btn-lg btn-danger" href="">
+                    <p class="sell"></p>
+                </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
  {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>

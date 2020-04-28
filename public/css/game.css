@@ -115,3 +115,7 @@ div[data-attribute='position-7'] {
     font-size: 30px;
     font-weight: bold;
 }
+
+.modal p{
+    margin-bottom:0;
+}

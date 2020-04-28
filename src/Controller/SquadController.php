@@ -11,6 +11,9 @@ use App\Repository\TeamRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Serializer\Encoder\JsonEncoder;
+use Symfony\Component\Serializer\Normalizer\ObjectNormalizer;
+use Symfony\Component\Serializer\Serializer;
 
 class SquadController extends AbstractController
 {
@@ -27,6 +30,7 @@ class SquadController extends AbstractController
 
         return $this->render('squad/index.html.twig', [
             'controller_name' => 'SquadController',
+            'user' => $user,
             'team' => $team,
             'titulaires' => $titulaires,
             'players' => $players
@@ -55,7 +59,40 @@ class SquadController extends AbstractController
             'player1Position' =>  $player1->getSquadPosition()
         )));
         $response->headers->set('Content-Type', 'application/json');
-       return $response;
+        return $response;
         
+    }
+
+    /**
+     * @Route("/squad/player_info", name="player_info")
+     */
+    public function playerInfo(Request $request, PlayerRepository $playerRepository)
+    {
+        $playerId = intval($request->request->get('playerId'));
+        $player = $playerRepository->find($playerId);
+
+        // On spécifie qu'on utilise l'encodeur JSON
+        $encoders = [new JsonEncoder()];
+
+        // On instancie le "normaliseur" pour convertir la collection en tableau
+        $normalizers = [new ObjectNormalizer()];
+
+        // On instancie le convertisseur
+        $serializer = new Serializer($normalizers, $encoders);
+
+        // On convertit en json
+        $jsonContent = $serializer->serialize($player, 'json', [
+            'circular_reference_handler' => function ($object) {
+                return $object->getId();
+            }
+        ]);
+
+        // On instancie la réponse
+        $response = new Response($jsonContent);
+
+        // On ajoute l'entête HTTP
+        $response->headers->set('Content-Type', 'application/json');
+
+        return $response;
     }
 }

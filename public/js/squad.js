@@ -14,21 +14,13 @@ $( document ).ready(function() {
 });
 
 
-//Choose a player
+//select a player
 $('.player').click(function(){
     $(this).toggleClass("player-selected");
-    //If player is titulaire add class player-selected on the player on the volley field image
-    // if($(this).attr("data-position-squad") < 8){
-    //     let positionNumber = $(this).attr("data-position-squad");
-    //     let titulaireParentBlock = $("div[data-attribute='position-"+positionNumber+"']");
-    //     let titulaire = titulaireParentBlock.find('.player-field');
-    //     titulaire.toggleClass("player-selected");
          checkSelected();
-    // }
-
 })
 
-
+//Swap players if 2 players are selected
 function checkSelected(){
     if($('.player-selected').length == 2){
         let player1 = $('.player-selected')[0];
@@ -55,9 +47,44 @@ function checkSelected(){
                 async: true,
                 success: function (data) {
                     console.log(data);
+                    location.reload();
                 }
         });
     }
 }
 
+//Get Info Player Modal
+$(".player-in-squad").click(function(){
+    let id = $(this).attr("data-id");
+    const path = $("#playerInfo").attr("data-path");
+    $.ajax({
+        url: path,
+        type: "POST",
+        dataType: "json",
+        data : {
+            "playerId": id
+        },
+        async: true,
+        success: function (data) {
+            console.log(data);
+            $('.modal-title').html(data.firstname+" "+data.lastname);
+            $('.card-image').html( "<img src='/images/players/"+data.image+"' class='card-img' />");
+            $('.age').html("Age : "+ data.age);
+            $('.attack').html("Attack : "+ data.attack);
+            $('.block').html("Block : "+ data.block);
+            $('.dig').html("Dig : "+ data.dig);
+            $('.passing').html("Passing : "+ data.passing);
+            $('.serve').html("Serve : "+ data.serve);
+            $('.training-count').html("Training Lasts : "+data.trainingCount);
+            $('.sell').html("Sell for "+data.sellingPrice);
+            $('#myModal').show();
+            
+        }
+    })
+})
+
+//Close Modal
+$(".close").click(function(){
+    $('#myModal').hide();
+})
 

@@ -119,3 +119,8 @@ div[data-attribute='position-7'] {
 .modal p{
     margin-bottom:0;
 }
+
+.overall{
+    font-size: 50px;
+    text-align: center;
+}

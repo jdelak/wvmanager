@@ -30,6 +30,14 @@ class PlayerRepository extends ServiceEntityRepository
         ;
     }
 
+    public function availablePlayers(){
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.id_team = null')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
     // /**
     //  * @return Player[] Returns an array of Player objects
     //  */

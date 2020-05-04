@@ -8,6 +8,7 @@ use App\Entity\Team;
 use App\Entity\Player;
 use App\Repository\PlayerRepository;
 use App\Repository\TeamRepository;
+use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -93,6 +94,35 @@ class SquadController extends AbstractController
         // On ajoute l'entête HTTP
         $response->headers->set('Content-Type', 'application/json');
 
+        return $response;
+    }
+
+    /**
+     * @Route("/squad/sell_player/", name="sell_player")
+     */
+    public function sellPlayer(Request $request, PlayerRepository $playerRepository){
+        
+        $user = $this->getUser();
+        $team = $user->getTeam();
+
+       $playerId = intval($request->request->get('playerId'));
+       $player = $playerRepository->find($playerId);
+
+       if($player->getSquadPosition() > 7){
+            $sellPrice = $player->getSellingPrice();
+            $userMoney = $user->getMoney();
+            $user->setMoney($userMoney + $sellPrice);
+            $team->removePlayer($player);
+
+            $response = new Response('Your player has been sold !'
+            );
+        }else{
+            $response = new Response(
+                'only substitutes and reserves players can be sold'
+            );  
+        }
+
+        $response->headers->set('Content-Type', 'text/html; charset=utf-8');
         return $response;
     }
 }

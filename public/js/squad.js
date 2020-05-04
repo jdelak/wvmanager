@@ -70,12 +70,14 @@ $(".player-in-squad").click(function(){
             $('.modal-title').html(data.firstname+" "+data.lastname);
             $('.card-image').html( "<img src='/images/players/"+data.image+"' class='card-img' />");
             $('.age').html("Age : "+ data.age);
+            $('.overall').html(data.overall);
             $('.attack').html("Attack : "+ data.attack);
             $('.block').html("Block : "+ data.block);
             $('.dig').html("Dig : "+ data.dig);
             $('.passing').html("Passing : "+ data.passing);
             $('.serve').html("Serve : "+ data.serve);
             $('.training-count').html("Training Lasts : "+data.trainingCount);
+            $('.sell-button').attr("data-player-id", data.id);
             $('.sell').html("Sell for "+data.sellingPrice);
             $('#myModal').show();
             
@@ -88,3 +90,21 @@ $(".close").click(function(){
     $('#myModal').hide();
 })
 
+//Selling Player
+$(".sell-button").click(function(){
+    let id = $(this).attr("data-player-id");
+    const path = $("#playerSell").attr("data-path");
+    $.ajax({
+        url: path,
+        type: "POST",
+        dataType: "text",
+        data : {
+            "playerId": id
+        },
+        async: true,
+        success: function (data) {
+            alert(data);
+        }
+    })
+
+})

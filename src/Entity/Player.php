@@ -580,4 +580,8 @@ class Player
         return $this;
     }
 
+    public function getFullName(){
+        return $this->firstname.' '.$this->lastname;
+    }
+
 }

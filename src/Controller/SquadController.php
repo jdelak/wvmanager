@@ -100,7 +100,7 @@ class SquadController extends AbstractController
     /**
      * @Route("/squad/sell_player/", name="sell_player")
      */
-    public function sellPlayer(Request $request, PlayerRepository $playerRepository){
+    public function sellPlayer(Request $request, PlayerRepository $playerRepository, EntityManagerInterface $em){
         
         $user = $this->getUser();
         $team = $user->getTeam();
@@ -113,12 +113,13 @@ class SquadController extends AbstractController
             $userMoney = $user->getMoney();
             $user->setMoney($userMoney + $sellPrice);
             $team->removePlayer($player);
+            $em->flush();
 
             $response = new Response('Your player has been sold !'
             );
         }else{
             $response = new Response(
-                'only substitutes and reserves players can be sold'
+                'only substitutes and reserves players can be sell !'
             );  
         }
 

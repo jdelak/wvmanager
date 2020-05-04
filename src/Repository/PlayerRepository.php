@@ -30,9 +30,10 @@ class PlayerRepository extends ServiceEntityRepository
         ;
     }
 
-    public function availablePlayers(){
+    public function findAvailablePlayers(){
         return $this->createQueryBuilder('p')
-        ->andWhere('p.id_team = null')
+        ->andWhere('p.id_team is NULL')
+        ->orderBy('p.id', 'DESC')
         ->getQuery()
         ->getResult()
         ;

@@ -40,11 +40,11 @@
         </tr>
         {% for player in players %}
             {% if player.squadPosition > 7 and player.squadPosition < 13 %}
-            <tr class="player player-substitute" id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
+            <tr class="player player-substitute" data-id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
             {% elseif player.squadPosition < 8 %}
-            <tr class="player player-titulaire" id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
+            <tr class="player player-titulaire" data-id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
             {% else %}
-            <tr class="player" id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
+            <tr class="player" data-id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
             {% endif %}
                 <td><img class="player-image" src="{{ asset('images/players/' ~ player.image) }}"></td>
                 <td>{{ player.firstname }} {{ player.lastname }}</td>

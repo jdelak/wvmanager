@@ -35,7 +35,7 @@
                             <a class="nav-link" href="#">Training</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Transfer Market</a>
+                            <a class="nav-link" href="{{ path('transfer') }}">Transfer Market</a>
                         </li>
                         <li class="nav-item">
                             <a href="{{ path('app_logout') }}" class="btn btn-secondary nav-link">Logout</a> 
@@ -61,7 +61,18 @@
             </div>
             </nav>
         {% endblock %}
+         {% for message in app.flashes('success') %}
+            <div class="alert alert-success">
+                {{ message }}
+            </div>
+        {% endfor %}
+        {% for message in app.flashes('error') %}
+            <div class="alert alert-danger">
+                {{ message }}
+            </div>
+        {% endfor %}
         {% block body %}
+       
         {% endblock %}
         </div>
         {% block modal %}

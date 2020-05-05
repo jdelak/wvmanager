@@ -584,4 +584,24 @@ class Player
         return $this->firstname.' '.$this->lastname;
     }
 
+    public function shortPositionName(){
+        if($this->position == 'outside_hitter'){
+            return 'OH';
+        }
+        else if($this->position == 'opposite'){
+            return 'OP';
+        }
+        else if($this->position == 'middle_blocker'){
+            return 'MB';
+        }
+        else if($this->position == 'setter'){
+            return 'S';
+        }
+        else if($this->position == 'libero'){
+            return 'L';
+        }
+    }
+
+    
+
 }

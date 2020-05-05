@@ -2,7 +2,7 @@
 $( document ).ready(function() {
     /* Overall Part */
     let overall = 0;
-    let titulaires = $('.player-in-squad');
+    let titulaires = $('.player');
     titulaires.each(function( index ) {
         var playerOverall = parseInt($( this ).find('.player-overall').text());
         overall += playerOverall;

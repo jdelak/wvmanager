@@ -30,12 +30,45 @@ class PlayerRepository extends ServiceEntityRepository
         ;
     }
 
+    public function findSubstitutePlayers($teamId)
+    {
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.id_team = :val')
+        ->setParameter('val', $teamId)
+        ->andWhere('p.squad_position BETWEEN 8 AND 12')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
+    public function findReservePlayers($teamId)
+    {
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.id_team = :val')
+        ->setParameter('val', $teamId)
+        ->andWhere('p.squad_position > 12')
+        ->getQuery()
+        ->getResult()
+        ;
+    }
+
     public function findAvailablePlayers(){
         return $this->createQueryBuilder('p')
         ->andWhere('p.id_team is NULL')
         ->orderBy('p.id', 'DESC')
         ->getQuery()
         ->getResult()
+        ;
+    }
+
+    public function findLastSquadPlayer($teamId){
+        return $this->createQueryBuilder('p')
+        ->andWhere('p.id_team = :val')
+        ->setParameter('val', $teamId)
+        ->orderBy('p.squad_position', 'DESC')
+        ->setMaxResults(1)
+        ->getQuery()
+        ->getOneOrNullResult()
         ;
     }
 

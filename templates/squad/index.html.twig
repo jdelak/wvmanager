@@ -19,11 +19,12 @@
         </div>
         <div class="volley-field" style="background-image : url('/images/woman-court.jpg')">
             {% for titulaire in titulaires %}
-            <div class="player-in-squad" data-id="{{titulaire.id}}" data-attribute="position-{{titulaire.squadPosition}}" data-position="{{titulaire.position}}">
+            <div class="player player-in-squad" data-id="{{titulaire.id}}" data-attribute="position-{{titulaire.squadPosition}}" data-position="{{titulaire.position}}">
                 <div class="player-field" style="background: url('/images/players/{{titulaire.image}}') center / contain no-repeat;">
                     <span class="player-overall">{{ titulaire.getOverall }}</span>
                 </div>
                 <span class="player-name">{{ titulaire.lastname }}</span>
+                <span class="player-position">{{ titulaire.shortPositionName }}</span>
                 <p class="text-center">{{titulaire.position}}</p>
             </div>
             
@@ -31,30 +32,41 @@
         </div>
     </div>
     <div class="col-lg-6">
-        <table class="table">
-        <tr>
-            <th></th>
-            <th>Name</th>
-            <th>Position</th>
-            <th>Overall</th>
-        </tr>
-        {% for player in players %}
-            {% if player.squadPosition > 7 and player.squadPosition < 13 %}
-            <tr class="player player-substitute" data-id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
-            {% elseif player.squadPosition < 8 %}
-            <tr class="player player-titulaire" data-id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
-            {% else %}
-            <tr class="player" data-id="{{ player.id }}" data-position="{{ player.position }}" data-position-squad="{{ player.squadPosition }}" data-ethnicity="{{ player.IdEthnicity.name}}" data-faction="{{ player.IdEthnicity.IdFaction.name}}">
-            {% endif %}
-                <td><img class="player-image" src="{{ asset('images/players/' ~ player.image) }}"></td>
-                <td>{{ player.firstname }} {{ player.lastname }}</td>
-                <td>{{ player.position }}</td>
-                <td data-player-overall="{{ player.getOverall }}">{{ player.getOverall }}</td>
-                <span></span>
-            </tr>
-        {% endfor %}
-        </table>
+        <div class="row">
+            
+            <div class="col-lg-6">
+            <h3>Substitutes</h3>
+                <div class="substitutes">
+                    {% for substitute in substitutes %}
+                    <div class="player-in-squad" data-id="{{substitute.id}}" data-attribute="position-{{substitute.squadPosition}}" data-position="{{substitute.position}}">
+                        <div class="player-field" style="background: url('/images/players/{{substitute.image}}') center / contain no-repeat;">
+                            <span class="player-overall">{{ substitute.getOverall }}</span>
+                            <span class="player-name">{{ substitute.lastname }}</span>
+                            <span class="player-position">{{ substitute.shortPositionName }}</span>
+                        </div>
+                    
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+             <div class="col-lg-6">
+             <h3>Reserve</h3>
+                <div class="reserves">
+                    {% for reserve in reserves %}
+                    <div class="player-in-squad" data-id="{{reserve.id}}" data-attribute="position-{{reserve.squadPosition}}" data-position="{{reserve.position}}">
+                        <div class="player-field" style="background: url('/images/players/{{reserve.image}}') center / contain no-repeat;">
+                            <span class="player-overall">{{ reserve.getOverall }}</span>
+                            <span class="player-name">{{ reserve.lastname }}</span>
+                            <span class="player-position">{{ reserve.shortPositionName }}</span>
+                        </div>
+                    
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
     </div>
+    
     <div id="swap" data-path="{{path('swap_players')}}"></div>
    <div id="playerInfo" data-path="{{path('player_info')}}"></div>
 </div>

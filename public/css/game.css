@@ -24,6 +24,16 @@
     height:80px;
 }
 
+.player-position{
+    position:absolute;
+    top:0;
+    left:0;
+    background-color: grey;
+    width: 20px;
+    text-align: center;
+    font-size:10px;
+}
+
 .player-overall{
     position: absolute;
     top: 0;
@@ -31,6 +41,7 @@
     background-color: grey;
     width: 20px;
     text-align: center;
+    font-size:10px
 }
 
 .player-name{
@@ -83,6 +94,18 @@ div[data-attribute='position-7'] {
     position:absolute;
     right: 10px;
     bottom: 10px;
+}
+
+.substitutes{
+    max-width:170px;
+}
+
+.reserves{
+    max-width:250px;
+}
+
+.substitutes .player-in-squad, .substitutes .player-in-squad{
+    display:inline-block;
 }
 
 .player-titulaire{

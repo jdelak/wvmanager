@@ -26,15 +26,18 @@ class SquadController extends AbstractController
 
         $user = $this->getUser();
         $team = $user->getTeam();
-        $players = $team->getPlayers();
         $titulaires = $playerRepository->findTitulairesPlayers($team->getId());
+        $substitutes = $playerRepository->findSubstitutePlayers($team->getId());
+        $reserves = $playerRepository->findReservePlayers($team->getId());
 
         return $this->render('squad/index.html.twig', [
             'controller_name' => 'SquadController',
             'user' => $user,
             'team' => $team,
             'titulaires' => $titulaires,
-            'players' => $players
+            'substitutes' => $substitutes,
+            'reserves' => $reserves
+           
         ]);
     }
 
@@ -108,10 +111,11 @@ class SquadController extends AbstractController
        $playerId = intval($request->request->get('playerId'));
        $player = $playerRepository->find($playerId);
 
-       if($player->getSquadPosition() > 7){
+       if($player->getSquadPosition() > 12){
             $sellPrice = $player->getSellingPrice();
             $userMoney = $user->getMoney();
             $user->setMoney($userMoney + $sellPrice);
+            $player->setSquadPosition(0);
             $team->removePlayer($player);
             $em->flush();
 
@@ -119,7 +123,7 @@ class SquadController extends AbstractController
             );
         }else{
             $response = new Response(
-                'only substitutes and reserves players can be sell !'
+                'Only reserves players can be sell !'
             );  
         }
 

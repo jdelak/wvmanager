@@ -8,79 +8,75 @@ $( document ).ready(function() {
         overall += playerOverall;
         
     });
-    overall = Math.round(overall / 7); 
-
+    overall = Math.round(overall / 12); 
     $('.team-overall').text("Global : "+overall);
-});
 
+    var player = $(".player-in-squad");
+    var mainCanvas = $("#squadPage");
+    //drag and drop part
+    player.draggable({
+        containment: mainCanvas,
+        helper: "clone",
 
-//select a player
-$('.player').click(function(){
-    // $(this).toggleClass("player-selected");
-    //      checkSelected();
-    let id = $(this).attr("data-id");
-    const path = $("#playerInfo").attr("data-path");
-    $.ajax({
-        url: path,
-        type: "POST",
-        dataType: "json",
-        data : {
-            "playerId": id
+        start: function () {
+            $(this).css({
+                opacity: 0
+            });
+
+            $(".player").css("z-index", "0");
         },
-        async: true,
-        success: function (data) {
-            console.log(data);
-            $('.modal-title').html(data.firstname+" "+data.lastname);
-            $('.card-image').html( "<img src='/images/players/"+data.image+"' class='card-img' />");
-            $('.age').html("Age : "+ data.age);
-            $('.overall').html(data.overall);
-            $('.attack').html("Attack : "+ data.attack);
-            $('.block').html("Block : "+ data.block);
-            $('.dig').html("Dig : "+ data.dig);
-            $('.passing').html("Passing : "+ data.passing);
-            $('.serve').html("Serve : "+ data.serve);
-            $('.training-count').html("Training Lasts : "+data.trainingCount);
-            $('.sell-button').attr("data-player-id", data.id);
-            $('.sell').html("Sell for "+data.sellingPrice);
-            $('#myModal').show();
-            
+
+        stop: function () {
+            $(this).css({
+                opacity: 1
+            });
         }
-    })
+    });
 
-})
+    player.droppable({
+        accept: player,
 
-//Swap players if 2 players are selected
-function checkSelected(){
-    if($('.player-selected').length == 2){
-        let player1 = $('.player-selected')[0];
-        let player1Id = player1.id;
-        let player1SquadPosition =  $(player1).attr("data-position-squad");
-        let player2 = $('.player-selected')[1];
-        let player2Id = player2.id;
-        let player2SquadPosition =  $(player2).attr("data-position-squad");
-        console.log("id du joueur 1 : "+player1Id);
-        console.log("SquadPosition joueur 1 : "+player1SquadPosition);
-        console.log("id du joueur 2 : "+player2Id);
-        console.log("SquadPosition joueur 2 : "+player2SquadPosition);
-        var path = $("#swap").attr("data-path");
-        $.ajax({
-            url: path,
-            type: "POST",
-            dataType: "json",
-                data: {
-                    "player1": parseInt(player1Id),
-                    "player2": parseInt(player2Id),
-                    "player1SquadPosition": parseInt(player1SquadPosition),
-                    "player2SquadPosition": parseInt(player2SquadPosition)
-                },
-                async: true,
-                success: function (data) {
-                    console.log(data);
-                    location.reload();
-                }
-        });
-    }
-}
+        drop: function (event, ui) {
+            var draggable = ui.draggable;
+            let player1Id = draggable.attr("data-id");
+            let player1SquadPosition =  $(draggable).attr("data-position-squad");
+            var droppable = $(this);
+            let player2Id = droppable.attr("data-id");
+            let player2SquadPosition =  $(droppable).attr("data-position-squad");
+            // var dragPos = draggable.position();
+            // var dropPos = droppable.position();
+
+            // draggable.css({
+            //     left: dropPos.left + "px",
+            //     top: dropPos.top + "px",
+            //     "z-index": 20
+            // });
+
+            // droppable.css("z-index", 10).animate({
+            //     left: dragPos.left,
+            //     top: dragPos.top
+            // });
+            var path = $("#swap").attr("data-path");
+            $.ajax({
+                url: path,
+                type: "POST",
+                dataType: "json",
+                    data: {
+                        "player1": parseInt(player1Id),
+                        "player2": parseInt(player2Id),
+                        "player1SquadPosition": parseInt(player1SquadPosition),
+                        "player2SquadPosition": parseInt(player2SquadPosition)
+                    },
+                    async: true,
+                    success: function (data) {
+                        console.log(data);
+                        location.reload();
+                    }
+            });
+
+        }
+    });
+});
 
 //Get Info Player Modal  
 $(".player-in-squad").click(function(){

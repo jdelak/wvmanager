@@ -3,7 +3,7 @@
 {% block title %}{{ team.name }} / Squad{% endblock %}
 
 {% block body %}
-<div class="row">
+<div class="row" id="squadPage">
     <div class="col-lg-6">
         <div class="row">
             <div class="col-lg-6">
@@ -19,7 +19,7 @@
         </div>
         <div class="volley-field" style="background-image : url('/images/woman-court.jpg')">
             {% for titulaire in titulaires %}
-            <div class="player player-in-squad" data-id="{{titulaire.id}}" data-attribute="position-{{titulaire.squadPosition}}" data-position="{{titulaire.position}}">
+            <div class="player player-in-squad" id="{{titulaire.id}}" data-id="{{titulaire.id}}" data-attribute="position-{{titulaire.squadPosition}}" data-position="{{titulaire.position}}" data-position-squad="{{titulaire.squadPosition}}">
                 <div class="player-field" style="background: url('/images/players/{{titulaire.image}}') center / contain no-repeat;">
                     <span class="player-overall">{{ titulaire.getOverall }}</span>
                 </div>
@@ -38,7 +38,7 @@
             <h3>Substitutes</h3>
                 <div class="substitutes">
                     {% for substitute in substitutes %}
-                    <div class="player-in-squad" data-id="{{substitute.id}}" data-attribute="position-{{substitute.squadPosition}}" data-position="{{substitute.position}}">
+                    <div class="player player-in-squad" id="{{substitute.id}}" data-id="{{substitute.id}}" data-attribute="position-{{substitute.squadPosition}}" data-position="{{substitute.position}}" data-position-squad="{{substitute.squadPosition}}">
                         <div class="player-field" style="background: url('/images/players/{{substitute.image}}') center / contain no-repeat;">
                             <span class="player-overall">{{ substitute.getOverall }}</span>
                             <span class="player-name">{{ substitute.lastname }}</span>
@@ -53,7 +53,7 @@
              <h3>Reserve</h3>
                 <div class="reserves">
                     {% for reserve in reserves %}
-                    <div class="player-in-squad" data-id="{{reserve.id}}" data-attribute="position-{{reserve.squadPosition}}" data-position="{{reserve.position}}">
+                    <div class="player-in-squad" id="{{reserve.id}}" data-id="{{reserve.id}}" data-attribute="position-{{reserve.squadPosition}}" data-position="{{reserve.position}}" data-position-squad="{{reserve.squadPosition}}">
                         <div class="player-field" style="background: url('/images/players/{{reserve.image}}') center / contain no-repeat;">
                             <span class="player-overall">{{ reserve.getOverall }}</span>
                             <span class="player-name">{{ reserve.lastname }}</span>
@@ -118,6 +118,7 @@
 {% endblock %}
  {% block javascripts %}
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"><script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
     <script src="{{ asset('js/squad.js')}}"></script>
 {% endblock %}
